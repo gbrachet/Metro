@@ -8,15 +8,22 @@ public class Noeud {
 	private int coutG;
 	private int coutH;
 	private int coutF;
-	private Noeud parent;
+	private Etape parent;
 	
-	public Noeud(int g, int h, int f, Noeud p){
+	public Noeud(int g, int h, int f, Etape p){
 		coutG = g;
 		coutH = h;
 		coutF = f;
 		parent = p;
 	}
-
+	
+	
+	public Noeud(int g, int h, int f){
+		coutG = g;
+		coutH = h;
+		coutF = f;
+	}
+	
 	public int getCoutG() {
 		return coutG;
 	}
@@ -41,11 +48,11 @@ public class Noeud {
 		this.coutF = coutF;
 	}
 
-	public Noeud getParent() {
+	public Etape getParent() {
 		return parent;
 	}
 
-	public void setParent(Noeud parent) {
+	public void setParent(Etape parent) {
 		this.parent = parent;
 	}
 }

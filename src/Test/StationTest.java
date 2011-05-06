@@ -16,14 +16,16 @@ import Metier.*;
 public class StationTest {
 
 	private ArrayList<Station> ListeStations;
-	
+	private ArrayList<Ligne> ListeLignes;
+
 	@Before
 	public void setUp() throws Exception {
 		
+		
 		ListeStations = new ArrayList<Station>();
-		ListeStations.add(new Station(5,"station1",0,10));
-		ListeStations.add(new Station(3,"station2",10,20));
-		ListeStations.add(new Station(10,"station3",25,75));
+		ListeStations.add(new Station(5,"station1",0,10, ListeLignes));
+		ListeStations.add(new Station(3,"station2",10,20,ListeLignes));
+		ListeStations.add(new Station(10,"station3",25,75,ListeLignes));
 		
 	}
 

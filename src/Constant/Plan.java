@@ -1,14 +1,16 @@
 package Constant;
 
 import java.util.ArrayList;
-
+import calculchemin.Etape;
 import Metier.Ligne;
 import Metier.Station;
 
 public class Plan {
-	
+	public static int VITESSE = 1; // vitesse d'un utilisateur a pied
+	public static int ATTENTE = 300; // temps d'attente moyen d'un metro en secondes
 	private static ArrayList<Ligne> LIGNES = new ArrayList<Ligne>();
 	private static ArrayList<Station> ListeStations = new ArrayList<Station>();
+	private static ArrayList<Etape> ETAPES = new ArrayList<Etape>();
 	
 	
 	
@@ -45,5 +47,17 @@ public class Plan {
 
 	public static void setLIGNES(ArrayList<Ligne> lIGNES) {
 		LIGNES = lIGNES;
+	}
+
+
+
+	public static ArrayList<Etape> getETAPES() {
+		return ETAPES;
+	}
+
+
+
+	public static void setETAPES(ArrayList<Etape> eTAPES) {
+		ETAPES = eTAPES;
 	}
 }

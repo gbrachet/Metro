@@ -1,6 +1,7 @@
 package calculchemin;
 
 import Constant.Plan;
+import Metier.Ligne;
 import Metier.Station;
 
 public class Etape {
@@ -14,6 +15,7 @@ public class Etape {
 	{
 		this.x = x;
 		this.y = y;
+		this.station = Station.findByCoord(x,y);
 	}
 	
 	public Etape(String station)
@@ -22,6 +24,8 @@ public class Etape {
 		this.x = s.getX();
 		this.y = s.getY();
 	}
+	
+	
 
 	public int getX() {
 		return x;
@@ -55,5 +59,8 @@ public class Etape {
 		this.noeud = noeud;
 	}
 	
+	public String toString(){
+		
+	}
 	
 }

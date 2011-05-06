@@ -2,7 +2,6 @@ package Metier;
 
 public class Utilisateur {
 
-	private static int VITESSE = 2;
 	private int posx;
 	private int posy;
 	
@@ -25,8 +24,5 @@ public class Utilisateur {
 
 	public void setPosy(int posy) {
 		this.posy = posy;
-	}
-	public int getVitesse(){
-		return VITESSE;
 	}
 }
