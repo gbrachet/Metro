@@ -1,17 +1,19 @@
 package Metier;
 import java.util.ArrayList;
 
+import Constant.Plan;
+
 
 public class Ligne {
 	
-	private static ArrayList<Ligne> LIGNES = new ArrayList<Ligne>();
+	
 	private ArrayList<Station> stations;
 	private ArrayList<Integer> temps;
 	
 	public Ligne(ArrayList<Station> s, ArrayList<Integer> t){
 		stations = s;
 		temps = t;
-		LIGNES.add(this);
+		Plan.getLIGNES().add(this);
 	}
 
 	public ArrayList<Station> getStations() {

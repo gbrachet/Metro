@@ -18,7 +18,7 @@ public class Main {
 				System.out.println("choix 2: à des coordonnées précises");
 				int choix =sc.nextInt();
 				if(choix==1){
-					//il entre les coordonnées de la station souhaitée
+					//il entre le nom de la station souhaitée
 					System.out.println("Veuillez SVP entrer le lieu ou vous voulez vous rendre");
 					String lieu=sc.next();
 					System.out.println(lieu);

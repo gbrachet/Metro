@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import Constant.Plan;
 import Metier.*;
 
 
@@ -31,7 +33,7 @@ public class StationTest {
 
 	@Test
 	public void testFindByName() {
-		Station test = Station.findByName("station2");
+		Station test = Plan.findByName("station2");
 		assert(test.getNom().compareTo("String")==0);
 //		fail("Not yet implemented");
 	}

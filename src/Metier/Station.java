@@ -1,10 +1,12 @@
 package Metier;
 import java.util.ArrayList;
 
+import Constant.Plan;
+
 
 public class Station {
 	
-	private static ArrayList<Station> ListeStations = new ArrayList<Station>();
+	
 	private int arret;	//Temps d'arrêt en secondes
 	private String nom;
 	private int x;
@@ -22,7 +24,7 @@ public class Station {
 		this.nom = nom;
 		this.x = x;
 		this.y = y;
-		ListeStations.add(this);
+		Plan.getListeStations().add(this);
 	}
 
 	public int getArret() {
@@ -64,20 +66,6 @@ public class Station {
 	public void setIncident(boolean incident) {
 		this.incident = incident;
 	}
-	
-	public static Station findByName(String nom){
-		Station res = null;
-		int i = 0;
-		while (res == null && i <ListeStations.size()){
-			if(ListeStations.get(i).getNom().compareTo(nom) == 0)
-				res = ListeStations.get(i);
-			i++;
-		}
-		return res;
 		
-	}
-	
-	
-	
 
 }
