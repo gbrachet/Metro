@@ -23,14 +23,21 @@ public class Chemin {
 	}
 	
 	
-	
+	public void afficherChemin(){
+		System.out.println("Vous êtes ici : ");
+		for(int i = 0; i< chemin.size()-1; i++){
+			chemin.get(i).toString();
+			System.out.println("Prochaine etape : ");
+		}
+		chemin.get(chemin.size()-1).toString();
+	}
 	
 	/* calcule la distance au carré entre les points (x1,y1) et (x2,y2) */
 	
-	public int tempsTheorique(int x1, int y1, int x2, int y2){
+	public static int tempsTheorique(int x1, int y1, int x2, int y2){
 		
 	    /* distance euclidienne divisee par la vitesse de l'utilisateur a pied */
-		return (int) Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))/Plan.VITESSE;
+		return (int) Math.sqrt((x1-x2)*(x1-x2)*100 + (y1-y2)*(y1-y2)*100)/Plan.VITESSE;
 	}
 	
 	
@@ -42,7 +49,7 @@ public class Chemin {
 	 * @param e2 etape d'arrivée
 	 * @return
 	 */
-	public int tempsReel(Etape e1, Etape e2){
+	public static int tempsReel(Etape e1, Etape e2){
 		
 		int res;
 		//si les deux etapes sont des stations
@@ -50,7 +57,7 @@ public class Chemin {
 			// on calcule le temps entre les deux stations
 			res = e1.getStation().temps(e2.getStation());
 			
-		//sinon si l'etape 1 n'est pas une station et l'étape 2 si on doit ajouter
+		//sinon si l'etape 1 n'est pas une station et l'étape 2 si, on doit ajouter
 		//le temps d'attente d'un metro en plus du temps pour arriver a la station	
 		}else if (e1.getStation()==null && e2.getStation() !=null){
 			res = tempsTheorique(e1.getX(),e1.getY(),e2.getX(),e2.getY()) + Plan.ATTENTE;
@@ -164,9 +171,7 @@ public class Chemin {
 	    /* la destination est atteinte, on remonte le chemin */
 	    if ((courant.getX() == destination.getX()) && (courant.getY() == destination.getY())){
 	        retrouverChemin();
-	        for(Etape e : chemin){
-	        	e.toString();
-	        	}
+	        afficherChemin();
 	        }else{
 	        	/* pas de solution */
 	        	}

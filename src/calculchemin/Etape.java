@@ -23,6 +23,7 @@ public class Etape {
 		Station s = Plan.findByName(station);
 		this.x = s.getX();
 		this.y = s.getY();
+		this.station = s;
 	}
 	
 	
@@ -60,7 +61,11 @@ public class Etape {
 	}
 	
 	public String toString(){
-		
+		String res;
+		if(station != null)
+			res = "Station : "+station.getNom();
+		else res = "x : "+x+"\ty : "+y;
+		return res;
 	}
 	
 }

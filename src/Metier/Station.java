@@ -133,7 +133,7 @@ public class Station implements Serializable {
 			
 		Station tmp = ligne.getStations().get(0);
 			//on parcoure la liste de station de la ligne pour voir si les deux stations sont adjacentes
-			for(int i = 1; i<ligne.getStations().size()-1; i++){
+			for(int i = 1; i<ligne.getStations().size(); i++){
 				//si la station temporaire correspond a une des deux stations recherchées
 				if (tmp.getNom().compareTo(nom)==0 ||
 					tmp.getNom().compareTo(s.getNom())==0){
@@ -150,7 +150,7 @@ public class Station implements Serializable {
 				tmp = ligne.getStations().get(i);
 			}
 		}else{// si les stations ne sont pas sur la même ligne on renvoit le temps pour parcourir la distance entre les deux stations à pied
-			temps = (int)Math.sqrt((x-s.getX())*(x-s.getX()) + (y-s.getY())*(y-s.getY()))/Plan.VITESSE;
+			temps = (int)Math.sqrt((x-s.getX())*(x-s.getX())*100 + (y-s.getY())*(y-s.getY())*100)/Plan.VITESSE;
 		}
 		
 		return temps;
