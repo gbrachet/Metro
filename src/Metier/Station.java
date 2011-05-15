@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import calculchemin.Etape;
 
 import Constant.Plan;
 
@@ -15,7 +14,7 @@ import Constant.Plan;
  * @author BALLAND Cyriel, BRACHET Gautier, DARTOIS Romain, PERRIN Maxence
  * @version 2.0 (11/04/11)
  */
-public class Station implements Serializable {
+public class Station extends Etape implements Serializable {
 	
 	/* Attributs */
 
@@ -24,25 +23,19 @@ public class Station implements Serializable {
 	
 	private int arret;					//Temps d'arrêt en secondes
 	private String nom;					//Nom de la station
-	private int x;						//Coordonné en x de la station
-	private int y;						//Coordonné en y de la station
 	private boolean incident = false;	//Présence d'un incident de la station
-	private ArrayList<Ligne> lignes;
 	
 	/* Contructeurs */
 
 	/**
 	 * @param arret
 	 * @param nom
-	 * @param x
-	 * @param y
+	 * 
 	 */
-	public Station(int arret, String nom, int x, int y,ArrayList<Ligne> l) {
+	public Station(int arret, String nom, int x, int y) {
+		super(x,y);
 		this.arret = arret;
 		this.nom = nom;
-		this.x = x;
-		this.y = y;
-		this.lignes = l;
 		Plan.getListeStations().add(this);
 	}
 	
@@ -65,21 +58,6 @@ public class Station implements Serializable {
 		this.nom = nom;
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
 
 	public boolean isIncident() {
 		return incident;
@@ -111,15 +89,36 @@ public class Station implements Serializable {
 	public Ligne memeLigne(Station s){
 		
 		Ligne res = null;
-			
+		boolean trouve = false;
 			// on compare la liste de lignes de la station1 avec la liste de lignes de la station2
 			// pour voir les correspondances.
-			for(Ligne l1 : lignes){
+			/*for(Ligne l1 : lignes){
 				for(Ligne l2 : s.getLignes()){
 					if (l1.getNom().compareTo(l2.getNom()) == 0)
 						res = l1;
 				}
 			}
+		return res;*/
+		for(Ligne l : Plan.getLIGNES()){
+			for(Station s1 : l.getStations()){
+				// si s est dans la ligne courante 
+				if (s1 == s){
+					if(trouve){
+						res = l;
+					}
+					trouve = true;
+				}
+				// si la station courante est dans la ligne
+				if(s1==this){
+					if(trouve){
+						res = l;
+					}
+					trouve = true;
+				}
+				
+			}
+			trouve = false;
+		}
 		return res;
 	}
 	
@@ -140,7 +139,7 @@ public class Station implements Serializable {
 					//on vérifie si la station suivante correspond a l'autre station recherchée
 					if (ligne.getStations().get(i).getNom().compareTo(nom)==0 ||
 						ligne.getStations().get(i).getNom().compareTo(s.getNom())==0	){
-						//si les deux station sont l'une a coté de l'autre on renvoie true
+						//les deux station sont l'une a coté de l'autre on met adjacent a true
 						adjacent = true;
 						// on prend le temps entre la station tmp et la station courante et on ajoute le temps d'arrêt de la station courante
 						temps = ligne.getTemps().get(i-1) + ligne.getStations().get(i).getArret();;
@@ -150,7 +149,7 @@ public class Station implements Serializable {
 				tmp = ligne.getStations().get(i);
 			}
 		}else{// si les stations ne sont pas sur la même ligne on renvoit le temps pour parcourir la distance entre les deux stations à pied
-			temps = (int)Math.sqrt((x-s.getX())*(x-s.getX())*100 + (y-s.getY())*(y-s.getY())*100)/Plan.VITESSE;
+			temps = (int)Math.sqrt((super.getX()-s.getX())*(super.getX()-s.getX()) + (super.getY()-s.getY())*(super.getY()-s.getY()))/Plan.VITESSE*10;
 		}
 		
 		return temps;
@@ -160,8 +159,8 @@ public class Station implements Serializable {
 	{
 		return "Nom de la sation : "+this.nom+"\n"
 			  +"Temps d'arrêt de la station : "+this.arret+"\n"
-			  +"X : "+this.x+"\n"
-			  +"Y : "+this.y+"\n"
+			  +"X : "+super.getX()+"\n"
+			  +"Y : "+super.getY()+"\n"
 			  +"Incident : "+this.incident
 		;		
 	}
@@ -206,14 +205,6 @@ public class Station implements Serializable {
 		return retour;
 	}
 
-	public ArrayList<Ligne> getLignes() {
-		return lignes;
-	}
-
-	public void setLignes(ArrayList<Ligne> lignes) {
-		this.lignes = lignes;
-	}
-	
 
 /*	public static void main(String[] args)
 	{

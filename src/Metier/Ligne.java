@@ -6,7 +6,7 @@ import Constant.Plan;
 
 public class Ligne {
 	
-	private String nom; // nom de la station (unique)
+	private String nom; // nom de la ligne (unique)
 	private ArrayList<Station> stations; // liste des stations de la ligne
 	private ArrayList<Integer> temps; // temps entre chaque station temps(0) est egal au temps entre la station 0 et la station 1
 	

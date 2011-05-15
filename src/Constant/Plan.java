@@ -1,13 +1,25 @@
 package Constant;
 
 import java.util.ArrayList;
-import calculchemin.Etape;
+
+import Metier.Etape;
 import Metier.Ligne;
 import Metier.Station;
 
+/*Plan utilisé dans le main :
+ * 
+ * 		1-------2-------3
+ * 				|
+ * 				|
+ * 				4
+ * 				|
+ * 				|
+ * 		5-------6-------7
+ */
+
 public class Plan {
-	public static int VITESSE = 1; // vitesse d'un utilisateur a pied
-	public static int ATTENTE = 300; // temps d'attente moyen d'un metro en secondes
+	public static final int VITESSE = 1; // vitesse d'un utilisateur a pied
+	public static final int ATTENTE = 300; // temps d'attente moyen d'un metro en secondes
 	private static ArrayList<Ligne> LIGNES = new ArrayList<Ligne>();
 	private static ArrayList<Station> ListeStations = new ArrayList<Station>();
 	private static ArrayList<Etape> ETAPES = new ArrayList<Etape>();

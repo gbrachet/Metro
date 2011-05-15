@@ -2,7 +2,9 @@ package calculchemin;
 import java.util.ArrayList;
 
 import Constant.Plan;
+import Metier.Etape;
 import Metier.Ligne;
+import Metier.Noeud;
 import Metier.Station;
 import Metier.Utilisateur;
 
@@ -15,21 +17,52 @@ public class Chemin {
 	private Etape destination;
 	private Etape depart;
 	private Etape courant;
-	
+	public ArrayList<Etape> getChemin() {
+		return chemin;
+	}
 	
 	public Chemin(Etape dest, Etape dep){
 		destination = dest;
 		depart = dep;
 	}
+
+	public void setChemin(ArrayList<Etape> chemin) {
+		this.chemin = chemin;
+	}
+
+
+	public Etape getDestination() {
+		return destination;
+	}
+
+
+	public void setDestination(Etape destination) {
+		this.destination = destination;
+	}
+
+
+	public Etape getDepart() {
+		return depart;
+	}
+
+
+	public void setDepart(Etape depart) {
+		this.depart = depart;
+	}
+
+	
+	
+	
+	
 	
 	
 	public void afficherChemin(){
 		System.out.println("Vous êtes ici : ");
 		for(int i = 0; i< chemin.size()-1; i++){
-			chemin.get(i).toString();
+			System.out.println(chemin.get(i).toString());
 			System.out.println("Prochaine etape : ");
 		}
-		chemin.get(chemin.size()-1).toString();
+		System.out.println(chemin.get(chemin.size()-1).toString());
 	}
 	
 	/* calcule la distance au carré entre les points (x1,y1) et (x2,y2) */
@@ -37,7 +70,7 @@ public class Chemin {
 	public static int tempsTheorique(int x1, int y1, int x2, int y2){
 		
 	    /* distance euclidienne divisee par la vitesse de l'utilisateur a pied */
-		return (int) Math.sqrt((x1-x2)*(x1-x2)*100 + (y1-y2)*(y1-y2)*100)/Plan.VITESSE;
+		return (int) Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))/Plan.VITESSE *10;
 	}
 	
 	
@@ -53,9 +86,9 @@ public class Chemin {
 		
 		int res;
 		//si les deux etapes sont des stations
-		if(e1.getStation() != null && e2.getStation() != null){
+		if(e1 instanceof Station && e2 instanceof Station){
 			// on calcule le temps entre les deux stations
-			res = e1.getStation().temps(e2.getStation());
+			res = ((Station)e1).temps((Station)e2);
 			
 		//sinon si l'etape 1 n'est pas une station et l'étape 2 si, on doit ajouter
 		//le temps d'attente d'un metro en plus du temps pour arriver a la station	
@@ -107,10 +140,14 @@ public class Chemin {
 	 * @param etape  (etape actuelle)
 	 */
 	public void ajouterEtape(Etape etape){
-		
+		boolean incident;
 		for (Etape tmp : Plan.getETAPES()){
+			incident = false;
+			//si l'étape est une station on regarde si elle a un incident
+			if(tmp instanceof Station)
+				incident =((Station)tmp).isIncident();
 			//Si l'étape n'a pas d'incidents et qu'elle n'est pas l'étape courante on l'ajoute à la liste ouverte.
-			if(!tmp.getStation().isIncident() && (tmp.getX()!=etape.getStation().getX() || tmp.getY()!=etape.getStation().getY())){
+			if(!incident && (tmp.getX()!=etape.getX() || tmp.getY()!=etape.getY())){
 				//calcul du coutG pour le noeud
 				int g = etape.getNoeud().getCoutG()+ tempsReel(etape,tmp);
 				//calcul du coutH
@@ -173,7 +210,7 @@ public class Chemin {
 	        retrouverChemin();
 	        afficherChemin();
 	        }else{
-	        	/* pas de solution */
+	        	/* pas de solution : cas impossible car on proposera toujours la marche :) */
 	        	}
 	    }
 	
